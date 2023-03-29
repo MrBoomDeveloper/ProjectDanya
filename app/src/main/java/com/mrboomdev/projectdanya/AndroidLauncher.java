@@ -7,6 +7,7 @@ import com.itsaky.androidide.logsender.LogSender;
 import com.mrboomdev.projectdanya.ui.UiManager;
 
 public class AndroidLauncher extends AndroidApplication {
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		LogSender.startLogging(this);
@@ -14,5 +15,10 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
 		configuration.useImmersiveMode = true;
 		initialize(UiManager.getInstance(), configuration);
+	}
+	
+	@Override
+	public void onBackPressed() {
+		
 	}
 }

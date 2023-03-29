@@ -9,9 +9,10 @@ import com.mrboomdev.projectdanya.ui.UiManager;
 import com.mrboomdev.projectdanya.ui.animation.AnimationUtil;
 import com.mrboomdev.projectdanya.ui.screens.base.BaseScreen;
 import com.mrboomdev.projectdanya.ui.screens.loading.LoadingScreen;
+import com.mrboomdev.projectdanya.ui.screens.menu.MenuScreen;
 
 public class SplashScreen extends BaseScreen {
-	private UiManager app = UiManager.getInstance();
+	private UiManager game = UiManager.getInstance();
 	private SpriteBatch batch;
 	private AnimationUtil animations;
 	private Sprite teamLogo;
@@ -21,18 +22,23 @@ public class SplashScreen extends BaseScreen {
 		animations = new AnimationUtil();
 		animations.createTask("logoFade")
 			.onSecond(0).fromTo(0, 1).withDuration(.5f).build()
-			.onSecond(2).fromTo(1, 0).withDuration(1).onFinish(() -> {
-				app.setScreen(new LoadingScreen());
+			.onSecond(1.8f).fromTo(1, 0).withDuration(.7f).onFinish(() -> {
+				game.assets.finishLoading();
+				game.setScreen(new MenuScreen());
 			}).build();
 	}
 	
 	@Override
 	public void show() {
-		app.assets.load("ui/brand/team_logo.png", Texture.class);
-		app.assets.finishLoading();
-		teamLogo = new Sprite(app.assets.get("ui/brand/team_logo.png", Texture.class));
+		game.assets.load("ui/brand/team_logo.png", Texture.class);
+		game.assets.finishLoading();
+		teamLogo = new Sprite(game.assets.get("ui/brand/team_logo.png", Texture.class));
 		teamLogo.setSize(450, 125);
 		teamLogo.setCenter(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+		game.assets.load("ui/screens/menu/background.png", Texture.class);
+		game.assets.load("ui/screens/menu/danya/danya_1.png", Texture.class);
+		game.assets.load("ui/screens/menu/danya/danya_2.png", Texture.class);
+		game.assets.load("ui/screens/menu/danya/danya_3.png", Texture.class);
 	}
 	
 	@Override
@@ -43,5 +49,10 @@ public class SplashScreen extends BaseScreen {
 		teamLogo.setAlpha(animations.getValue("logoFade"));
 		teamLogo.draw(batch);
 		batch.end();
+	}
+	
+	@Override
+	public void hide() {
+		batch.dispose();
 	}
 }
