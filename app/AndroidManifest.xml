@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.mrboomdev.projectdanya">
+	
+	<application android:label="TRTB"
+		android:allowBackup="true"
+		android:largeHeap="true"
+		android:installLocation="preferExternal"
+		android:icon="@drawable/app_icon"
+		android:appCategory="game"
+		android:theme="@style/GdxTheme">
+		
+        <activity android:name=".AndroidLauncher"
+			android:screenOrientation="landscape"
+			android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
+			android:exported="true">
+			
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+		
+    </application>
+</manifest>
