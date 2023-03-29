@@ -20,10 +20,10 @@ public class SplashScreen extends BaseScreen {
 		batch = new SpriteBatch();
 		animations = new AnimationUtil();
 		animations.createTask("logoFade")
-			.onSecond(0).fromTo(0, 1).withDuration(.5f).build();
-			//.onSecond(2).fromTo(1, 0).withDuration(1).onFinish(() -> {
-				//app.setScreen(new LoadingScreen());
-			//}).build();
+			.onSecond(0).fromTo(0, 1).withDuration(.5f).build()
+			.onSecond(2).fromTo(1, 0).withDuration(1).onFinish(() -> {
+				app.setScreen(new LoadingScreen());
+			}).build();
 	}
 	
 	@Override
