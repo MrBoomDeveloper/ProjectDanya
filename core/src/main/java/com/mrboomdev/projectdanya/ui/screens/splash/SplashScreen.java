@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mrboomdev.projectdanya.ui.UiManager;
 import com.mrboomdev.projectdanya.ui.animation.AnimationUtil;
 import com.mrboomdev.projectdanya.ui.screens.base.BaseScreen;
+import com.mrboomdev.projectdanya.ui.screens.loading.LoadingScreen;
 
 public class SplashScreen extends BaseScreen {
 	private UiManager app = UiManager.getInstance();
@@ -18,7 +19,11 @@ public class SplashScreen extends BaseScreen {
 	public SplashScreen() {
 		batch = new SpriteBatch();
 		animations = new AnimationUtil();
-		animations.addTask("logoFade").fromTo(0, 1);
+		animations.createTask("logoFade")
+			.onSecond(0).fromTo(0, 1).withDuration(.5f).build();
+			//.onSecond(2).fromTo(1, 0).withDuration(1).onFinish(() -> {
+				//app.setScreen(new LoadingScreen());
+			//}).build();
 	}
 	
 	@Override
@@ -33,6 +38,7 @@ public class SplashScreen extends BaseScreen {
 	@Override
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0, 1);
+		animations.update(delta);
 		batch.begin();
 		teamLogo.setAlpha(animations.getValue("logoFade"));
 		teamLogo.draw(batch);
