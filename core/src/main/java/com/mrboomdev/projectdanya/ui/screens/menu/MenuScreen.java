@@ -6,16 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.FillViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mrboomdev.projectdanya.ui.UiManager;
 import com.mrboomdev.projectdanya.ui.screens.base.BaseScreen;
 
 public class MenuScreen extends BaseScreen {
-	private UiManager game = UiManager.getInstance();
+	private final UiManager game = UiManager.getInstance();
 	private SpriteBatch batch;
 	private OrthographicCamera camera;
-	private Viewport viewport;
 	private Sprite background, danya;
 	private int currentDanya;
 	private float danyaPosition;
@@ -25,7 +22,6 @@ public class MenuScreen extends BaseScreen {
 	public void show() {
 		batch = new SpriteBatch();
 		camera = new OrthographicCamera(32, 18);
-		viewport = new FillViewport(camera.viewportWidth, camera.viewportHeight, camera);
 		camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 		
 		background = new Sprite(game.assets.get("ui/screens/menu/background.png", Texture.class));
@@ -39,13 +35,11 @@ public class MenuScreen extends BaseScreen {
 		ScreenUtils.clear(0, 0, 0, 1);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-		batch.begin();
-		{
+		batch.begin(); {
 			background.draw(batch);
 			danya.setCenter(22, danyaPosition);
 			danya.draw(batch);
-		}
-		batch.end();
+		} batch.end();
 		changeLook();
 		danyaPosition -= delta * .7f;
 		if(danyaPosition < -5) {
